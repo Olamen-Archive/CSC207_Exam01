@@ -1,7 +1,6 @@
 package average;
 
 import java.math.BigInteger;
-import java.lang.Long;
 
 public class Average {
   public static long getAverage(long[] array) {
@@ -21,6 +20,17 @@ public class Average {
     }
     System.out.println(sum.toString());
     return sum.divide(BigInteger.valueOf(array.length)).longValue();
+  }
+
+  public static long myAverage(long[] array) {
+    long average = 0;
+    int  t = 1;
+    for (long num : array) {
+      average += (num - average) / t;
+      t += 1;
+    }
+
+    return average;
   }
   
   public static String printArray(long[] array) {
