@@ -60,10 +60,9 @@ public class PriorityQueue<T> implements Iterable<T> {
         head = head.next;
 
         /* unlink prevHead for GC */
-        prevHead.next = null;
         if (head != null) head.prev = null;
 
-       return prevHead.item;
+        return prevHead.item;
     }
 
     public T peek() {

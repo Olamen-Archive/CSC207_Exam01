@@ -20,16 +20,10 @@ public class PriorityQueueTest {
         q.put("AAAA");
 
         Iterator<String> itr = q.iterator();
-//        while (itr.hasNext()) {
-//            String str = itr.next();
-//            itr.remove();
-//        }
-
-        while (!q.isEmpty()) {
-            System.out.println(q.get());
-        }
-        for (String str : q) {
-            System.out.println(str);
-        }
+        System.out.println(q.get());
+        System.out.println(itr.next());
+        System.out.println(itr.next());
+        q.put("AAAA");
+        System.out.println(q.get());
     }
 }
