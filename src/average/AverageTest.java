@@ -1,29 +1,24 @@
-//package average;
-//
-//public class AverageTest {
-//
-//  @Test
-//  void overflow() {
-//    for (int i = 1; i < 10; i++) {
-//      long[] numArray = new long[i]; // creating array with i numebers;
-//      for (int j = 0; j < numArray.length; j++) {
-//        numArray[j] = Long.MAX_VALUE;
-//      }
-//      assertEquals(Long.MAX_VALUE, Average.absoluteAverage(numArray),
-//          Average.printArray(numArray) + " fails the test");
-//    }
-//  }
-//
-//  @Test
-//  void underflow() {
-//    for (int i = 1; i < 10; i++) {
-//      long[] numArray = new long[i]; // creating array with i numebers;
-//      for (int j = 0; j < numArray.length; j++) {
-//        numArray[j] = Long.MIN_VALUE;
-//      }
-//      assertEquals(Long.MIN_VALUE, Average.absoluteAverage(numArray),
-//          Average.printArray(numArray) + " fails the test");
-//    }
-//  }
-//
-//}
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Tests of MathUtils.average
+ * 
+ * @author Tessa Ter
+ * @author Jay Unit
+ */
+class AverageTest {
+
+  @Test
+  void testBasic() {
+    assertEquals(11, MathUtils.average(new long[] {10,11,12}));
+  }
+  
+  @Test
+  void testSimpleOverflow() {
+    long val = (Long.MAX_VALUE / 2) + 3;
+    assertEquals(val, MathUtils.average(new long[] { val, val }));
+    assertEquals(val, MathUtils.average(new long[] { val, val, val }));
+  }
+
+} // class AverageTest

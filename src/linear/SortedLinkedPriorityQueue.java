@@ -18,14 +18,25 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
+    // +--------+----------------------------------------------------------
+    // | Fields |
+    // +--------+
 
     private Comparator<T> comparator;
     private Node<T> head;
+
+    // +--------------+----------------------------------------------------
+    // | Constructors |
+    // +--------------+
 
     public SortedLinkedPriorityQueue(Comparator<T> aComparator) {
         this.comparator = aComparator;
         head = null;
     }
+
+    // +-------------------------+-----------------------------------------
+    // | LinearStructure Methods |
+    // +-------------------------+
 
     public void put(T val) {
         Node<T> currNode = head;
@@ -127,6 +138,10 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             }
         }
 
+        /**
+         * Unlink the given node from list
+         * @param node
+         */
         private void unlinkNode(SortedLinkedPriorityQueue<T>.Node<T> node) {
             if (node.prev != null) {
                 node.prev.next = null;

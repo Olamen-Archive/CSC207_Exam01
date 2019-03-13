@@ -1,7 +1,6 @@
 package linear;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * Queues implemented with arrays.
@@ -125,7 +124,8 @@ public class ArrayBasedQueue<T> implements Queue<T> {
                 }
                 int index;
                 for (index = pos; index < size; index++) {
-                    values[(front + index - 1) % values.length] = values[(front + index) % values.length];
+                    values[(front + index - 1) % values.length] =
+                        values[(front + index) % values.length];
                 }
                 values[(front + index - 1) % values.length] = null;
                 size--;
