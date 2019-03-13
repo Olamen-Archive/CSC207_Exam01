@@ -1,3 +1,7 @@
+package average;
+
+import java.math.BigInteger;
+
 /**
  * A simple set of utilities.
  * 
@@ -15,4 +19,13 @@ public class MathUtils {
     } // for
     return sum/values.length;
   } // average(long[])
+
+  public static long bigAverage(long[] values) {
+    BigInteger sum = BigInteger.valueOf(0);
+    for (long val : values) {
+      sum.add(BigInteger.valueOf(val));
+    }
+    BigInteger average = sum.divide(BigInteger.valueOf(values.length));
+    return average.longValue();
+  }
 } // class MathUtils
