@@ -23,9 +23,19 @@ public class MathUtils {
   public static long bigAverage(long[] values) {
     BigInteger sum = BigInteger.valueOf(0);
     for (long val : values) {
-      sum.add(BigInteger.valueOf(val));
+      sum = sum.add(BigInteger.valueOf(val));
     }
     BigInteger average = sum.divide(BigInteger.valueOf(values.length));
     return average.longValue();
+  }
+
+  public static long myAverage(long[] array) {
+    long average = 0;
+    int  t = 1;
+    for (long num : array) {
+      average += (num - average) / t + (num % t - average % t) / t;
+      t += 1;
+    }
+    return average;
   }
 } // class MathUtils

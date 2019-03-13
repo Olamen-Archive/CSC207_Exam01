@@ -1,6 +1,6 @@
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
+package average;
 
+import
 /**
  * Tests of MathUtils.average
  * 
