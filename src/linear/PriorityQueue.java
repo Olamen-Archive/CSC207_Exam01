@@ -2,144 +2,62 @@ package linear;
 
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
-public class PriorityQueue<T> implements Iterable<T> {
+/**
+ * A linear structure that follows the "best first" policy.
+ *
+ * @author Samuel A. Rebelsky
+ */
+public interface PriorityQueue<T> extends LinearStructure<T> {
+  /**
+   * Add an element to the queue.
+   *
+   * @param val the value to add.
+   * @pre !this.isFull()
+   * @post The queue now contains an additional copy of val.
+   * @exception Exception If the structure is full.
+   */
+  public void put(T val) throws Exception;
 
-    private class Node<T> {
-        public T item;
-        public Node<T> next;
-        public Node<T> prev;
-        public Node(T item, Node<T> prev, Node<T> next) {
-            this.item = item;
-            this.prev = prev;
-            this.next = next;
-        }
-    }
+  /**
+   * Remove the highest-priority element that is still in the queue.
+   *
+   * @return val, a value.
+   * @pre !this.isEmpty()
+   * @post The structure contains one fewer copy of val.
+   * @post For all values, v, in the queue, comparator().compare(val, v) <= 0
+   * @exception Exception If the structure is empty.
+   */
+  public T get() throws Exception;
 
-    private Comparator<T> comparator;
-    private Node<T> head;
+  /**
+   * Determine what element will next be removed by get.
+   *
+   * @return val, a value.
+   * @pre !this.isEmpty()
+   * @post For all values, v, in the queue, comparator().compare(val, v) <= 0
+   * @exception Exception If the structure is empty.
+   */
+  public T peek() throws Exception;
 
-    public PriorityQueue(Comparator<T> aComparator) {
-       this.comparator = aComparator;
-       head = null;
-    }
+  /**
+   * Determine if the structure is empty.
+   */
+  public boolean isEmpty();
 
-    public void put(T val) {
-        Node<T> currNode = head;
-        Node<T> prevNode = null;
+  /**
+   * Determine if the structure is full.
+   */
+  public boolean isFull();
 
-        while (currNode != null && comparator.compare(val, currNode.item) >= 0) {
-            prevNode = currNode;
-            currNode = currNode.next;
-        }
+  /**
+   * Get an iterator that returns all of the elements in some order (that is, not necessarily in
+   * priority order).
+   */
+  public Iterator<T> iterator();
 
-        Node<T> newNode = new Node<>(val, prevNode, currNode);
-        if (isEmpty()) {
-            /* insert an empty node */
-            head = newNode;
-        } else if (currNode == null) {
-            /* insert at the end of list */
-            prevNode.next = newNode;
-        } else if (prevNode == null) {
-            /* insert at first pos */
-            head = newNode;
-            currNode.prev = newNode;
-        } else {
-            prevNode.next = newNode;
-            currNode.prev = newNode;
-        }
-    }
-
-    public T get() {
-        if (isEmpty()) {
-            return null;
-        }
-
-        Node<T> prevHead = head;
-        head = head.next;
-
-        /* unlink prevHead for GC */
-        if (head != null) head.prev = null;
-
-        return prevHead.item;
-    }
-
-    public T peek() {
-        if (isEmpty()) {
-            return null;
-        }
-        return head.item;
-    }
-
-    public boolean isEmpty() {
-        return head == null;
-    }
-
-    public boolean isFull() {
-        return false;
-    }
-
-    public Iterator<T> iterator() {
-        return new PriorityQueueIterator<T>(this);
-    }
-
-    public class PriorityQueueIterator<T> implements Iterator<T> {
-        PriorityQueue<T> queue;
-        PriorityQueue<T>.Node<T> currNode; // the next node to return
-        PriorityQueue<T>.Node<T> lastReturn; // the node that return last time
-
-        public PriorityQueueIterator(PriorityQueue<T> queue) {
-            this.queue = queue;
-            this.currNode = queue.head;
-            lastReturn = null;
-        }
-
-        public T next() throws NoSuchElementException {
-            if (!this.hasNext()) {
-                throw new NoSuchElementException();
-            }
-            lastReturn = currNode;
-            currNode = currNode.next;
-            return lastReturn.item;
-        }
-
-        public void remove() {
-            if (lastReturn == null) {
-               throw new IllegalStateException("No next has been called yet!");
-            }
-
-            PriorityQueue<T>.Node<T> lastReturnPrev = lastReturn.prev;
-            PriorityQueue<T>.Node<T> lastReturnNext = lastReturn.next;
-
-            unlinkNode(lastReturn);
-            if (lastReturnPrev == null) {
-                /* node is at the first */
-                queue.head = lastReturnNext;
-            } else {
-                lastReturnPrev.next = lastReturnNext;
-            }
-            if (lastReturnNext != null) {
-                lastReturnNext.prev = lastReturnPrev;
-            }
-        }
-
-        private void unlinkNode(PriorityQueue<T>.Node<T> node) {
-           if (node.prev != null) {
-               node.prev.next = null;
-           }
-
-           if (node.next != null) {
-               node.next.prev = null;
-           }
-        }
-
-        public boolean hasNext() {
-            return currNode != null;
-        }
-    }
-
-    public Comparator<T> comparator() {
-       return this.comparator;
-    }
-}
+  /**
+   * Determine what comparator is used by this priority queue.
+   */
+  public Comparator<T> comparator();
+} // interface PriorityQueue<T>
