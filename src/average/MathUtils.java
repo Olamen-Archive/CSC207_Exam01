@@ -9,6 +9,9 @@ import java.math.BigInteger;
  * @author Zixuan Guo
  */
 public class MathUtils {
+  /**
+   * Compute the average of an array of long values.
+   */
   public static long average(long[] arr) {
     if (arr.length == 0) return 0;
     long divideSum = 0;

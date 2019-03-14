@@ -78,6 +78,13 @@ class AverageTest {
     }
   }
   
+  /**
+     * Calculate absolute right average 
+     *
+     * @param values values to calculate
+     * @pre none
+     * @post Sum(values) / size = average
+     */
   private static long bigAverage(long[] values) {
     if (values.length == 0) return 0;
     BigInteger sum = BigInteger.valueOf(0);
@@ -88,6 +95,13 @@ class AverageTest {
     return average.longValue();
   }
   
+  /**
+     * toString method of long array
+     *
+     * @param arr array to String
+     * @pre none
+     * @post String form of arr
+     */
   private static String toString(long[] arr) {
     StringBuilder str = new StringBuilder();
     str.append("[");
