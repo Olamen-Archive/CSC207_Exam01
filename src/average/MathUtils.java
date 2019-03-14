@@ -9,33 +9,28 @@ import java.math.BigInteger;
  * @author Your Name
  */
 public class MathUtils {
-  /**
-   * Compute the average of an array of long values.
-   */
-  public static long average(long[] values) {
-    long sum = 0;
-    for (long val :values) {
-      sum += val;
-    } // for
-    return sum/values.length;
-  } // average(long[])
-
-  public static long bigAverage(long[] values) {
-    BigInteger sum = BigInteger.valueOf(0);
-    for (long val : values) {
-      sum = sum.add(BigInteger.valueOf(val));
+//  public static long average(long[] array) {
+//    long average = 0;
+//    int t = 1;
+//    for (long num : array) {
+//      average += (num - average) / t + (num % t - average % t) / t;
+//      t += 1;
+//    }
+//    return average;
+//  }
+  
+  public static long average(long[] arr) {
+    if (arr.length == 0) return 0;
+    long divideSum = 0;
+    long modSum = 0;
+    final long size = arr.length;
+    
+    for (int i = 0; i < arr.length; i++) {
+      divideSum += arr[i] / size;
+      modSum += arr[i] % size;
     }
-    BigInteger average = sum.divide(BigInteger.valueOf(values.length));
-    return average.longValue();
-  }
-
-  public static long myAverage(long[] array) {
-    long average = 0;
-    int  t = 1;
-    for (long num : array) {
-      average += (num - average) / t + (num % t - average % t) / t;
-      t += 1;
-    }
+    
+    long average = divideSum + (modSum + (size - 1) * size) / size - (size - 1);
     return average;
   }
-} // class MathUtils
+}
