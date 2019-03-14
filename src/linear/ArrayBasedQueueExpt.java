@@ -47,15 +47,17 @@ public class ArrayBasedQueueExpt {
     // And we're back down to the empty queue
     expt.info();
 
-
+    /* test if queue expand beyond 4 */
     expt.clear();
     expt.put("a");
     expt.put("b");
     expt.put("c");
     expt.put("d");
     expt.put("e");
+    expt.put("f");
     expt.info();
 
+    /* test if remove works */
     Iterator<String> iterator = expt.iterator();
     while (iterator.hasNext()) {
       if (iterator.next().equals("d")) { iterator.remove(); }

@@ -39,7 +39,34 @@ class AverageTest {
   }
   
   @Test
-  void testRandomArr() {
+  void testRandomPositive() {
+    Random rand = new Random();
+    for (int i = 1; i < 100; i++) {
+      long[] arr = new long[i];
+      /* Initialize array */
+      for (int j = 0; j < arr.length; j++) {
+        arr[j] = Math.abs(rand.nextLong());
+      }
+      assertEquals(bigAverage(arr), MathUtils.average(arr), toString(arr));
+    }
+  }
+  
+  @Test
+  void testRandomNegative() {
+    Random rand = new Random();
+    for (int i = 1; i < 100; i++) {
+      long[] arr = new long[i];
+      /* Initialize array */
+      for (int j = 0; j < arr.length; j++) {
+        long randNum = rand.nextLong();
+        arr[j] = randNum > 0 ? -randNum : randNum;
+      }
+      assertEquals(bigAverage(arr), MathUtils.average(arr), toString(arr));
+    }
+  }
+  
+  @Test
+  void testRandom() {
     Random rand = new Random();
     for (int i = 1; i < 100; i++) {
       long[] arr = new long[i];
@@ -47,7 +74,7 @@ class AverageTest {
       for (int j = 0; j < arr.length; j++) {
         arr[j] = rand.nextLong();
       }
-      assertEquals(bigAverage(arr), MathUtils.average(arr));
+      assertEquals(bigAverage(arr), MathUtils.average(arr), toString(arr));
     }
   }
   
@@ -58,7 +85,20 @@ class AverageTest {
       sum = sum.add(BigInteger.valueOf(val));
     }
     BigInteger average = sum.divide(BigInteger.valueOf(values.length));
-    System.out.println(average.toString());
     return average.longValue();
+  }
+  
+  private static String toString(long[] arr) {
+    StringBuilder str = new StringBuilder();
+    str.append("[");
+    for (int i = 0; i < arr.length; i++) {
+      str.append(arr[i]);
+      if (i != arr.length - 1) {
+        str.append(", ");
+      }
+    }
+    str.append("]");
+    return str.toString();
+    
   }
 } // class AverageTest
